@@ -5,8 +5,7 @@ class TestMe():
     def take_five(self):
         return 4
     def port(self):
-        return PORT 
-
+        return PORT
 
 if __name__ == '__main__':
     Handler = http.server.SimpleHTTPRequestHandler
