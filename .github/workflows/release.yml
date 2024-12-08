@@ -29,16 +29,16 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/devops-test:latest
 
-touch-k8s-manifest:
-  needs: [ push_to_registry ]
-  runs-on: ubuntu-24.04
-  steps:
-    - uses: actions/checkout@v4
-    - name: Insert release date
-      run: 'sed -i "s/release-date: .*$/release-date: s`date +%s`/g" ./server-k8s-manifests/devops-test.yml'
-    - name: Commit manifest
-      run: |
-        git config --global user.name 'Release Runner'
-        git config --global user.email 'runner@users.noreply.github.com'
-        git commit -am "Release"
-        git push --force origin main:release
+  touch-k8s-manifest:
+    needs: [ push_to_registry ]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Insert release date
+        run: 'sed -i "s/release-date: .*$/release-date: s`date +%s`/g" ./server-k8s-manifests/devops-test.yml'
+      - name: Commit manifest
+        run: |
+          git config --global user.name 'Release Runner'
+          git config --global user.email 'runner@users.noreply.github.com'
+          git commit -am "Release"
+          git push --force origin main:release
